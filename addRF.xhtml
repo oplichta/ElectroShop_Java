@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="content">
+		<h:form id="personForm">
+			<h:panelGrid columns="2">
+			
+			 <rich:validator event="change">				
+				 <h:outputText value="#{msg.personFirstNameLabel}" />
+         <h:inputText label="Name" id="name" value="#{personBean.person.firstName}" required="true">
+          <f:validateLength minimum="3" />
+         </h:inputText>
+				
+				<h:outputText value="#{msg.personSecondNameLabel}" />
+				<h:inputText id="sname" value="#{personBean.person.secondName}">
+					 <f:validateLength minimum="3" />
+				</h:inputText>
+
+				<h:outputText value="#{msg.personPinLabel}" />
+				<h:inputText id="pin" value="#{personBean.person.pin}" >
+				 <f:validateLength minimum="11" />
+					<a4j:ajax render="messages" execute="@this" />
+				</h:inputText>
+				
+							<h:outputText value="#{msg.personRDLabel}" />
+
+				<rich:calendar value="#{personBean.person.registrationDate}"
+					id="calendar" datePattern="dd.MM.yyyy" showApplyButton="#{true}"
+					cellWidth="24px" cellHeight="22px" style="width:200px">
+					<a4j:ajax render="messages" execute="@this" />
+				</rich:calendar>
+				
+				<h:outputText value="#{msg.personZipCodeLabel}" />
+				<h:inputText id="zipCode" value="#{personBean.person.zipCode}" />
+				
+					<h:outputText value="#{msg.personWeightLabel}" />
+				<h:inputText id="weight" value="#{personBean.person.weight}">
+					<f:validateDoubleRange minimum="20.5" maximum="150.5" />
+					<f:ajax execute="@this" render="messages" />
+				</h:inputText>
+			 </rich:validator>
+			  <rich:notifyMessages stayTime="2000" nonblocking="true" />
+			</h:panelGrid>
+
+			<h:panelGrid>
+				<h:messages for="" />
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+			</h:panelGrid>
+
+			<a4j:outputPanel ajaxRendered="true">
+				<h:panelGrid columns="2">
+											
+					<h:outputText value="#{msg.personPinLabel}" />
+					<h:outputText id="pinOutput" value="#{personBean.person.pin}" />
+
+					<h:outputText value="#{msg.personRDLabel}" />
+					<h:outputText id="rdOutput"
+						value="#{personBean.person.registrationDate}" />
+										
+
+				</h:panelGrid>
+				<h:commandButton value="#{msg.personFormOKButton}"
+				action="#{personBean.addPerson}" />
+			</a4j:outputPanel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

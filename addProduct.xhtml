@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="content">
+		<h:form id="addProductForm">
+			<rich:panel style="width:300px">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Podaj dane użytkownika" />
+                    <a4j:status>
+                        <f:facet name="start">
+                            <h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;" alt="ai" />
+                        </f:facet>
+                    </a4j:status>
+                </h:panelGroup>
+            </f:facet>
+			<h:panelGrid columns="2">
+
+				<h:outputText value="#{msg.productMakeLabel}" />
+				<h:inputText id="make" value="#{productBean.product.make}" required="#{true}" >
+					<a4j:ajax render="messages" execute="@this" />
+					</h:inputText>
+					
+					<h:outputText value="#{msg.productModelLabel}" />
+				<h:inputText id="model" value="#{productBean.product.model}">
+					<a4j:ajax render="messages" execute="@this" />
+				</h:inputText>			
+				
+					<h:outputText value="#{msg.productCenaLabel}" />
+				<h:inputText id="volMotor" value="#{productBean.product.cena}" required="#{true}" >
+					<a4j:ajax render="messages" execute="@this" />
+					</h:inputText>
+					
+					<h:outputText value="#{msg.productNrSeryjnyLabel}" />
+				<h:inputText id="nrRej" value="#{productBean.product.nrSeryjny}">
+					<a4j:ajax render="messages" execute="@this" />
+				</h:inputText>		
+				
+					<h:outputText value="#{msg.productRokProdukcjiLabel}" />
+				
+					<rich:calendar   value="#{productBean.product.rokProdukcji}"
+						id="calendar" datePattern="dd.MM.yyyy" showApplyButton="#{true}"
+						style="width:200px">
+					<a4j:ajax render="messages" execute="@this" />
+					</rich:calendar>
+									
+					<h:outputText value="#{msg.productWagaLabel}" />
+				<h:inputText id="waga" value="#{productBean.product.waga}">
+				<f:validateDoubleRange minimum="20.5" maximum="150.5" />
+					<f:ajax execute="@this" render="messages" />
+				</h:inputText>
+			
+			<h:outputText value="#{msg.productSoldLabel}" />
+				<h:inputText id="sold" value="#{productBean.product.sold}" />
+												
+			</h:panelGrid>
+
+			<h:commandButton value="#{msg.productFormOKButton}"
+				action="#{productBean.addProduct}" />
+
+			<h:panelGrid>
+				<h:messages for="" />
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+				<a4j:outputPanel ajaxRendered="true">
+				<h:panelGrid columns="2">
+
+					<h:outputText value="#{msg.productMakeLabel}" />
+					<h:outputText id="makeOutput"
+						value="#{productBean.product.make}" />
+						
+					<h:outputText value="#{msg.productModelLabel}" />
+					<h:outputText id="modelOutput"
+						value="#{productBean.product.model}" />
+												
+			</h:panelGrid>
+			</a4j:outputPanel>
+			</h:panelGrid>
+				</rich:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

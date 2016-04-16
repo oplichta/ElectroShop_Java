@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="content">
+		<h:form id="productForm">
+		<rich:panel style="width:400px">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Podaj dane użytkownika" />                    
+                </h:panelGroup>
+            </f:facet>		
+			<h:panelGrid columns="2">
+
+				<h:outputText value="#{msg.personLabel}" />
+				<h:selectOneMenu value="#{saleBean.personId}">
+					<f:selectItems value="#{saleBean.allPersons}" var="person"
+						itemValue="#{person.id}" itemLabel="#{person.firstName} #{person.secondName}" />
+				</h:selectOneMenu>
+
+				<h:outputText value="#{msg.carLabel}" />
+				<h:selectOneMenu value="#{saleBean.productId}">
+					<f:selectItems value="#{saleBean.availableProducts}" var="product"
+						itemValue="#{product.id}" itemLabel="#{product.make} #{product.model}" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			
+			<h:commandButton value="#{msg.sellLabel}" action="#{saleBean.sellProduct}" />
+
+			<h:panelGrid>
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+			</h:panelGrid>
+		</rich:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

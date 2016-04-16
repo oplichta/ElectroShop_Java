@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="content">
+	<style type="text/css">
+div.rf-p-b {         
+  font-size: 12px;      
+}
+</style>
+		<h:form>
+			<rich:panel style="width:400px">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Wszystkie produkty" />
+                    <a4j:status>
+                        <f:facet name="start">
+                            <h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;" alt="ai" />
+                        </f:facet>
+                    </a4j:status>
+                </h:panelGroup>
+            </f:facet>
+			<h:dataTable value="#{productBean.allProducts}" var="item">
+				<f:facet name="header">#{msg.productAllLabel}</f:facet>
+				<h:column>
+					<f:facet name="header">#{msg.productMakeLabel}</f:facet>
+					<h:outputText value="#{item.make}" />
+				</h:column>
+
+ 			<h:column>
+        <f:facet name="header">#{msg.productModelLabel}</f:facet>
+        #{item.model}
+      </h:column>       
+       
+      
+       <h:column>
+        <f:facet name="header">#{msg.productSoldLabel}</f:facet>
+        #{item.sold}
+      </h:column>
+			
+
+				<h:column>
+					<f:facet name="header">#{msg.action}</f:facet>
+					<h:commandLink value="#{msg.actionDelete} "	action="#{productBean.deleteProduct}" />
+					<h:commandLink value="#{msg.actionDetails} " action="#{productBean.detailsProduct}"/>
+					 <h:commandLink value="#{msg.actionEdit} " action="#{productBean.editProduct}"/>
+				</h:column>
+
+			</h:dataTable>
+			</rich:panel>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

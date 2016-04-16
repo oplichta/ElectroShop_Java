@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="content">
+	<style type="text/css">
+div.rf-p-b {         
+  font-size: 12px;      
+}
+</style>
+		<h:form id="detalisAppleProductForm">
+			<rich:panel style="height:400px;width:700px">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="#{msg.productDetailsLabel}" />
+                </h:panelGroup>
+            </f:facet>
+			<h:panelGrid columns="2">
+
+				<h:outputText value="#{msg.productMakeLabel}" />
+				<h:outputText id="make" value="#{productBean.product.make}"/>					
+					
+				<h:outputText value="#{msg.productModelLabel}" />
+				<h:outputText id="model" value="#{productBean.product.model}"/>
+				
+				<h:outputText value="#{msg.productCenaLabel}" />
+				<h:outputText id="volMotor" value="#{productBean.product.cena}"/>		
+					
+				<h:outputText value="#{msg.productNrSeryjnyLabel}" />
+				<h:outputText id="nrRej" value="#{productBean.product.nrSeryjny}"/>	
+				
+				<h:outputText value="#{msg.productRokProdukcjiLabel}" />
+				<h:outputText   value="#{productBean.product.rokProdukcji}"/>											
+					
+				<h:outputText value="#{msg.productWagaLabel}" />
+				<h:outputText id="waga" value="#{productBean.product.waga}"/>							
+			
+				<h:outputText value="#{msg.productSoldLabel}" />
+				<h:outputText id="sold" value="#{productBean.product.sold}" />
+												
+		</h:panelGrid>					
+				<h:commandButton value="#{msg.productFormOKButton}"
+				action="showProducts?faces-redirect=true" />								
+		</rich:panel>
+    </h:form>      
+	</ui:define>	
+</ui:composition>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	>
+  <div>
+	<h:form>
+	<rich:panel style="width:230px">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Menu" />
+                    <a4j:status>
+                        <f:facet name="start">
+                            <h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;" alt="ai" />
+                        </f:facet>
+                    </a4j:status>
+                </h:panelGroup>
+            </f:facet>
+	 <h:outputStylesheet library="css" name="default.css" target="panelGrid" />
+	<h:panelGrid columns="2" columnClasses="cols,cols" width="200">
+            <rich:panelMenu  style="width:210px" itemMode="ajax" groupMode="ajax" groupExpandedLeftIcon="triangleUp"
+                groupCollapsedLeftIcon="triangleDown" topGroupExpandedRightIcon="chevronUp"
+                topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc" 
+               >
+            <h:commandLink action="home?faces-redirect=true">
+			<a4j:commandButton value="#{msg.linkHome}" render="out" execute="@form"  />
+		  </h:commandLink>
+             
+                <rich:panelMenuGroup label="Osoby"  id="Osoby" expanded="true">
+                    <rich:panelMenuItem label="#{msg.personAddLabel}"  action="add?faces-redirect=true"  />
+                    <rich:panelMenuItem label="#{msg.personAllLabel}"  action="showPersons?faces-redirect=true"  />
+                   
+                </rich:panelMenuGroup>
+                <rich:panelMenuGroup label="Telefony" name="Telefony" expanded="true" >
+                   
+                    <rich:panelMenuItem label="Apple" name="Apple" action="showAppleProducts?faces-redirect=true" />
+                    <rich:panelMenuItem label="Asus" name="Asus" action="showAsusProducts?faces-redirect=true" />                   
+                    <rich:panelMenuItem label="HTC" name="HTC" action="showHTCProducts?faces-redirect=true" />
+                    <rich:panelMenuItem label="Samsung" name="Samsung" action="showSamsungProducts?faces-redirect=true"/>
+                    <rich:panelMenuItem label="#{msg.productAddLabel}" name="dodajProdukt" action="addProduct?faces-redirect=true" />
+                    <rich:panelMenuItem label="#{msg.productAllLabel}" name="wszystkieProdukty" action="showProducts?faces-redirect=true"/>
+                </rich:panelMenuGroup>
+                 <rich:panelMenuGroup label="Szukaj" name="Szukaj" expanded="true" >                   
+                    <rich:panelMenuItem label="Wyszukaj osobe"  action="searchPerson?faces-redirect=true" />
+                    <rich:panelMenuItem label="Wyszukaj produkt"  action="searchProduct?faces-redirect=true" />                 
+                    
+                </rich:panelMenuGroup>
+                <rich:panelMenuGroup label="#{msg.sellLabel}" expanded="true">
+                    <rich:panelMenuItem label="#{msg.sellLabel}" name="sprzedaj" action="sell?faces-redirect=true"/>                    
+                </rich:panelMenuGroup>
+            </rich:panelMenu>
+            <a4j:outputPanel ajaxRendered="true">
+                <rich:panel rendered="#{panelMenuBean.current}">
+                    <h:outputText value="#{panelMenuBean.current} selected" id="current" />
+                </rich:panel>
+            </a4j:outputPanel>
+        </h:panelGrid>	
+        </rich:panel>	
+   </h:form>
+  </div>
+</ui:composition>

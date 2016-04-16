@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="content">
+		<h:form id="personForm">
+			<rich:panel style="width:450px">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Podaj dane użytkownika" />
+                </h:panelGroup>
+            </f:facet>
+			<h:panelGrid columns="3">
+			
+			 <rich:validator event="change">
+				 <h:outputText value="#{msg.personFirstNameLabel}" />
+         <h:inputText label="Name" id="name" value="#{personBean.person.firstName}" >
+          <f:validateLength minimum="3" />
+           <f:validateRequired />
+           <rich:validator />
+         </h:inputText>         
+				<rich:message for="name" />		
+						
+				<h:outputText value="#{msg.personSecondNameLabel}" />
+				<h:inputText label="sname" id="sname" value="#{personBean.person.secondName}" >
+					 <f:validateLength minimum="3" />
+					 <f:validateRequired />
+					</h:inputText>
+				<rich:message for="sname" />
+				
+				<h:outputText value="#{msg.personPinLabel}" />
+				<h:inputText id="pin" value="#{personBean.person.pin}">
+				 <f:validateLength minimum="11" maximum="11" />
+					<a4j:ajax render="messages" execute="@this" />
+					 <f:validateRequired />
+					</h:inputText>
+				<rich:message for="pin" />
+				
+							<h:outputText value="#{msg.personRDLabel}" />
+
+				<rich:calendar value="#{personBean.person.registrationDate}"
+					id="calendar" datePattern="dd.MM.yyyy" showApplyButton="#{true}"
+					cellWidth="24px" cellHeight="22px" style="width:200px">
+					<a4j:ajax render="messages" execute="@this" />
+					 <f:validateRequired />
+				</rich:calendar>
+				<rich:message for="calendar" />
+				
+				<h:outputText value="#{msg.personZipCodeLabel}" />
+				<h:inputText id="zipCode" value="#{personBean.person.zipCode}" 		validatorMessage="#{msg.personZipCodeLabel}: Format 00-000">
+					 <f:validateRegex  pattern="^\d{2}-\d{3}$" />
+					<f:validateRequired />
+					<rich:validator />					
+				</h:inputText>				
+				<rich:message for="zipCode" />
+				
+					<h:outputText value="#{msg.personWeightLabel}" />
+				<h:inputText id="weight" value="#{personBean.person.weight}">
+					<f:validateDoubleRange minimum="20.5" maximum="150.5" />
+					<f:validateRequired />
+					<rich:validator />					
+				</h:inputText>
+				<rich:message for="weight" />
+				
+			 </rich:validator>
+			 <rich:notifyStack id="firstStack" position="topLeft" direction="horizontal" method="last" />
+			 
+			  <rich:notify stayTime="5000" showShadow="true" nonblocking="true" showCloseButton="true" stack="firstStack"/>
+				<h:commandButton value="#{msg.personFormOKButton}"
+				action="#{personBean.addPerson}" />
+			
+			</h:panelGrid>
+			</rich:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
